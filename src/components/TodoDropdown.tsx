@@ -1,29 +1,19 @@
 
 
-import { DropdownMenuCheckboxItemProps } from "@radix-ui/react-dropdown-menu"
+import { DropdownMenuItem } from "@radix-ui/react-dropdown-menu"
 
 import { Button } from "@/components/ui/button"
 import {
     DropdownMenu,
-    DropdownMenuCheckboxItem,
     DropdownMenuContent,
     DropdownMenuLabel,
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import { useState } from "react"
-import { useAppDispatch } from "@/redux/hooks"
-import { filterTask } from "@/redux/features/TodoSlice"
-type Checked = DropdownMenuCheckboxItemProps["checked"]
 
-const TodoDropdown = () => {
-    const [high, setHigh] = useState<Checked>(false)
-    const [medium, setMedium] = useState<Checked>(false)
-    const [low, setLow] = useState<Checked>(false)
-    const dispatch = useAppDispatch()
-    const handleChecked = (id: string) => {
-        dispatch(filterTask(id))
-    }
+
+const TodoDropdown = ({ setFilter }: any) => {
+
     return (
         <DropdownMenu>
             <DropdownMenuTrigger asChild>
@@ -32,27 +22,22 @@ const TodoDropdown = () => {
             <DropdownMenuContent className="w-56">
                 <DropdownMenuLabel>Select by priority</DropdownMenuLabel>
                 <DropdownMenuSeparator />
-                <DropdownMenuCheckboxItem
-                    checked={high}
-                    onCheckedChange={setHigh}
-                    onClick={() => handleChecked("high")}
+                <DropdownMenuItem
+                    onClick={() => setFilter("high")}
                 >
                     High
-                </DropdownMenuCheckboxItem>
-                <DropdownMenuCheckboxItem
-                    checked={medium}
-                    onCheckedChange={setMedium}
-                    onClick={() => handleChecked("medium")}
+                </DropdownMenuItem>
+                <DropdownMenuItem
+
+                    onClick={() => setFilter("medium")}
                 >
                     Medium
-                </DropdownMenuCheckboxItem>
-                <DropdownMenuCheckboxItem
-                    checked={low}
-                    onCheckedChange={setLow}
-                    onClick={() => handleChecked("low")}
+                </DropdownMenuItem>
+                <DropdownMenuItem
+                    onClick={() => setFilter("low")}
                 >
                     Low
-                </DropdownMenuCheckboxItem>
+                </DropdownMenuItem>
             </DropdownMenuContent>
         </DropdownMenu>
     )

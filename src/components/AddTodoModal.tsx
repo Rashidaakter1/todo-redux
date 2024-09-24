@@ -25,6 +25,7 @@ import { useForm } from "react-hook-form"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { useAppDispatch } from "@/redux/hooks"
 import { addTask } from "@/redux/features/TodoSlice"
+import { useAddTodoMutation } from "@/redux/api/api"
 const formSchema = z.object({
     task: z.string().min(2, {
         message: "Task must be at least 2 characters.",
@@ -40,7 +41,8 @@ const formSchema = z.object({
 
 
 const AddTodoModal = () => {
-    const dispatch = useAppDispatch()
+    // const dispatch = useAppDispatch()
+    const [addTask, { isLoading, data, isSuccess }] = useAddTodoMutation()
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
@@ -55,10 +57,14 @@ const AddTodoModal = () => {
         const taskDetails = {
             ...values,
             id: id,
-
+            isCompleted: false
         }
-        dispatch(addTask(taskDetails))
+        // dispatch(addTask(taskDetails))
         form.reset()
+
+
+        addTask(taskDetails)
+        console.log(isLoading, isSuccess, data)
 
     }
     return (
