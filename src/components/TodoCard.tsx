@@ -4,6 +4,7 @@ import { FaEdit } from "react-icons/fa"
 import { removeTask, toggleTask, TTodo } from "@/redux/features/TodoSlice"
 import { useAppDispatch } from "@/redux/hooks"
 import { useRemoveTodoMutation, useUpdateTodoMutation } from "@/redux/api/api"
+import EditTodoModal from "./EditTodoModal"
 
 
 const TodoCard = ({ task, description, isCompleted, id, priority }: TTodo) => {
@@ -49,7 +50,8 @@ const TodoCard = ({ task, description, isCompleted, id, priority }: TTodo) => {
                 <div className="flex
                 ">
                     <Button onClick={() => removeTask(id)} className="bg-red-500 mx-3"><MdDelete /></Button>
-                    <Button className="bg-green-800 mx-3"><FaEdit /></Button>
+                    <EditTodoModal id={id} isCompleted={isCompleted} task={task} description={description} priority={priority} />
+
                 </div>
 
             </div>

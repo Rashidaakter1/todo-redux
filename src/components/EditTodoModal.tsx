@@ -1,5 +1,3 @@
-
-
 import {
     Dialog,
     DialogContent,
@@ -24,7 +22,9 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 
-import { useAddTodoMutation } from "@/redux/api/api"
+import { useUpdateTodoMutation } from "@/redux/api/api"
+import { FaEdit } from "react-icons/fa"
+import { TTodo } from "@/redux/features/TodoSlice"
 import { useState } from "react"
 const formSchema = z.object({
     task: z.string().min(2, {
@@ -39,38 +39,37 @@ const formSchema = z.object({
 
 })
 
-
-const AddTodoModal = () => {
+const EditTodoModal = ({ id, isCompleted, task, description, priority }: TTodo) => {
     const [open, setOpen] = useState(false);
-    // const dispatch = useAppDispatch()
-    const [addTask, { isLoading, data, isSuccess }] = useAddTodoMutation()
+    const [updateTask, { isLoading, isSuccess }] = useUpdateTodoMutation()
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
-            task: "",
-            description: "",
+            task: task,
+            description: description,
+            priority: priority,
 
         },
     })
 
     function onSubmit(values: z.infer<typeof formSchema>) {
-        const id = Math.random().toString(36).substring(2, 7)
-        const taskDetails = {
-            ...values,
+        const data = {
             id: id,
-            isCompleted: false
+            body: {
+                ...values,
+                isCompleted
+            }
         }
-        // dispatch(addTask(taskDetails))
+
         form.reset()
-
-
-        addTask(taskDetails)
-        console.log(isLoading, isSuccess, data)
-
+        updateTask(data)
+        setOpen(false)
+        console.log({ isLoading, data, isSuccess })
     }
     return (
         <Dialog open={open} onOpenChange={setOpen}>
-            <DialogTrigger>  <Button onClick={() => setOpen(true)} className='bg-blue-700'> Add Todo</Button></DialogTrigger>
+            <DialogTrigger onClick={() => setOpen(true)}>
+                <Button className="bg-green-800 mx-3"><FaEdit /></Button></DialogTrigger>
             <DialogContent>
                 <DialogHeader>
                     <DialogTitle></DialogTitle>
@@ -158,4 +157,4 @@ const AddTodoModal = () => {
     )
 }
 
-export default AddTodoModal
+export default EditTodoModal
