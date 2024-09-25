@@ -1,50 +1,77 @@
-# React + TypeScript + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# Todo Application
 
-Currently, two official plugins are available:
+## Objective
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+This is a simple Todo application built using React, Redux and Shadcn Ui for managing tasks.
 
-## Expanding the ESLint configuration
+## Links
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+- [Todo application](https://course-review-server-o92qcqcco.vercel.app/)
 
-- Configure the top-level `parserOptions` property like this:
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+## Features
+- Add, update, delete, and view tasks.
+- Mark tasks as completed or pending.
+- Set task priority (high, medium, low).
+- Responsive UI built with React, using Redux for state management.
+
+
+## Tech Stack
+- Backend: Node.js, Express.js, MongoDB, Mongoose
+- Frontend: React, Redux, TailwindCSS
+- API: RESTful API for task management
+
+## Run Locally
+
+Clone the project
+
+```bash
+  git clone https://github.com/Rashidaakter1/Course-review-server.git
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+Go to the project directory
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
-
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
+```bash
+  cd Course-review-server
 ```
+
+Install dependencies
+
+```bash
+  npm install
+```
+
+Start the server with development
+
+```bash
+  npm run start
+```
+
+
+###  API Endpoints
+
+#### Retrieve a list of all tasks and also use query parameters to see the as your preference
+
+```http
+  GET /todos
+```
+
+#### Create a new task.
+
+```http
+  POST /todos
+```
+
+#### Update a task's information.
+
+```http
+  PUT /todo/:id
+```
+#### Delete a task's information.
+
+```http
+  DELETE /todo/:id
+```
+
+

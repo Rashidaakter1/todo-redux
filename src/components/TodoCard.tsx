@@ -1,16 +1,14 @@
 import { MdDelete } from "react-icons/md"
 import { Button } from "./ui/button"
-import { FaEdit } from "react-icons/fa"
-import { removeTask, toggleTask, TTodo } from "@/redux/features/TodoSlice"
-import { useAppDispatch } from "@/redux/hooks"
+import {  TTodo } from "@/redux/features/TodoSlice"
 import { useRemoveTodoMutation, useUpdateTodoMutation } from "@/redux/api/api"
 import EditTodoModal from "./EditTodoModal"
 
 
 const TodoCard = ({ task, description, isCompleted, id, priority }: TTodo) => {
-    const dispatch = useAppDispatch()
+    // const dispatch = useAppDispatch()
 
-    const [updateTask, { data, isSuccess, isLoading }] = useUpdateTodoMutation()
+    const [updateTask, { isSuccess, isLoading }] = useUpdateTodoMutation()
     const [removeTask] = useRemoveTodoMutation()
 
 
